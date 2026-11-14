@@ -1,0 +1,1816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Outage Comms Studio — MI4, INC. · by kdmirah lab</title>
+<style>
+/* Outage Comms Studio — Dieter Rams minimalist */
+/* "Less, but better." Honest, unobtrusive, no decoration, no fake materials. */
+
+:root {
+  --bg: #ffffff;
+  --surface: #fafafa;
+  --surface-alt: #f2f2f2;
+  --border: #cccccc;
+  --border-focus: #000000;
+  --ink: #000000;
+  --ink-soft: #333333;
+  --ink-muted: #666666;
+  --accent: #000000;
+  --accent-hover: #1a1a1a;
+  --success: #1a1a1a;
+  --warn: #000000;
+  --error: #000000;
+  --radius: 0;
+  --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+  --font-mono: "Courier New", Courier, monospace;
+}
+
+* { box-sizing: border-box }
+
+html { scroll-behavior: auto }
+
+body {
+  margin: 0;
+  font-family: var(--font);
+  background: var(--bg);
+  color: var(--ink);
+  line-height: 1.5;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: var(--ink); text-decoration: underline }
+
+button, input, select, textarea { font: inherit; color: inherit }
+
+:focus-visible { outline: 1px solid var(--border-focus) }
+
+h1, h2, h3, h4 { font-weight: 400; margin: 0 0 1rem; letter-spacing: 0 }
+
+h1 { font-size: 24px }
+h2 { font-size: 18px }
+h3 { font-size: 15px }
+h4 { font-size: 13px }
+
+p { margin: 0 0 0.75rem }
+
+/* ---------- Header ---------- */
+header.top {
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+}
+
+.top-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 32px 24px 28px;
+  display: flex;
+  gap: 24px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.brand { display: flex; gap: 16px; align-items: flex-start; flex: 1; min-width: 260px }
+
+.logo { width: 32px; height: 32px; flex: none }
+
+.logo svg { width: 100%; height: 100%; fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round }
+
+.brand-eyebrow {
+  margin: 0 0 4px;
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+}
+
+.brand-eyebrow .by {
+  font-weight: 400;
+  letter-spacing: 0.02em;
+  text-transform: none;
+  color: var(--ink-muted);
+}
+
+h1 { font-size: 20px; margin: 0 0 6px; letter-spacing: -0.01em }
+
+.subtitle { margin: 0; color: var(--ink-muted); font-size: 13px }
+
+.top-actions { display: flex; gap: 10px; align-items: center; flex-wrap: wrap }
+
+/* ---------- Buttons (honest, functional) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 8px 14px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ink);
+  text-decoration: none;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:hover { border-color: var(--ink-soft); background: var(--surface) }
+
+.btn:active { background: var(--surface-alt); border-color: var(--ink) }
+
+.btn-primary { background: var(--ink); border-color: var(--ink); color: #ffffff }
+
+.btn-primary:hover { background: var(--accent-hover); border-color: var(--accent-hover) }
+
+.btn-ghost { background: transparent; color: var(--ink); border-color: var(--border) }
+
+.btn-ghost:hover { background: var(--surface); border-color: var(--ink-soft) }
+
+.btn-outline { background: var(--bg); color: var(--ink); border-color: var(--border) }
+
+.btn-outline:hover { border-color: var(--ink-soft); background: var(--surface) }
+
+.btn-small { padding: 6px 12px; font-size: 12px }
+
+.btn-danger-ghost { background: transparent; color: var(--error); border-color: var(--border) }
+
+.btn-danger-ghost:hover { background: var(--error); color: #ffffff }
+
+/* ---------- Fictional bar ---------- */
+.fictional-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+}
+
+.fictional-inner {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 12px 24px;
+  font-size: 12px;
+  color: var(--ink-muted);
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.fictional-inner strong { color: var(--ink) }
+
+/* ---------- Pills ---------- */
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 500;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.pill-amber { background: var(--surface-alt); color: var(--ink-soft); border-color: var(--border) }
+.pill-green { border-color: var(--success); color: var(--success); background: #fafafa }
+.pill-grey { background: var(--surface-alt); color: var(--ink-muted); border-color: var(--border) }
+.pill-red { border-color: var(--error); color: var(--error); background: #fafafa }
+
+/* ---------- Main ---------- */
+main {
+  max-width: 1180px;
+  margin: 0 auto;
+  padding: 28px 24px 60px;
+}
+
+/* ---------- Cards ---------- */
+.card {
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.card h2 { font-size: 17px; margin-bottom: 0.5rem }
+.card h3 { font-size: 14px; margin-bottom: 0.5rem }
+
+.muted { color: var(--ink-muted); font-size: 12px }
+.small { font-size: 12px }
+
+/* ---------- Hero ---------- */
+.hero { display: grid; grid-template-columns: 1fr 0.85fr; gap: 32px; margin-bottom: 32px }
+@media (max-width: 900px) { .hero { grid-template-columns: 1fr } }
+
+.hero-card h2 { font-size: 20px }
+
+.who-grid { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; margin-top: 20px }
+@media (max-width: 700px) { .who-grid { grid-template-columns: 1fr } }
+
+.who-box {
+  border: 1px solid var(--border);
+  padding: 16px;
+}
+
+.who-box .label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--ink-muted);
+  margin-bottom: 8px;
+}
+
+.who-box p { margin: 0; font-size: 13px; color: var(--ink-soft) }
+
+/* ---------- Steps ---------- */
+.steps { display: flex; gap: 8px; flex-wrap: wrap; margin: 0 0 24px }
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 14px;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink-muted);
+}
+
+.step .num {
+  width: 20px;
+  height: 20px;
+  border-radius: var(--radius);
+  background: var(--surface-alt);
+  color: var(--ink-soft);
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  font-weight: 600;
+  flex: none;
+}
+
+.step.active { color: var(--ink); border-color: var(--ink) }
+.step.active .num { background: var(--ink); color: #ffffff }
+
+.step.done { color: var(--success); border-color: var(--success) }
+.step.done .num { background: var(--success); color: #ffffff }
+
+/* ---------- Layout ---------- */
+.layout { display: grid; grid-template-columns: 1fr 1.1fr; gap: 24px; align-items: start }
+@media (max-width: 980px) { .layout { grid-template-columns: 1fr } }
+
+.stack { display: grid; gap: 24px }
+
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
+}
+
+.section-head h2 { margin: 0 }
+.section-head p { margin: 4px 0 0; font-size: 12px; color: var(--ink-muted) }
+
+/* ---------- Form controls ---------- */
+label {
+  display: block;
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--ink);
+  margin: 16px 0 6px;
+}
+
+label .hint {
+  display: block;
+  font-weight: 400;
+  color: var(--ink-muted);
+  font-size: 11px;
+  margin-top: 2px;
+}
+
+input[type="text"], input[type="time"], input[type="date"], select, textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 9px 11px;
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 13px;
+  font-family: inherit;
+}
+
+textarea { min-height: 64px; resize: vertical }
+
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+@media (max-width: 560px) { .row2 { grid-template-columns: 1fr } }
+
+.checks { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 6px }
+
+.check-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 6px 11px;
+  font-size: 13px;
+  font-weight: 500;
+  background: var(--bg);
+  cursor: pointer;
+}
+
+.check-chip input { accent-color: var(--ink); width: 15px; height: 15px }
+
+.check-chip:has(input:checked) {
+  border-color: var(--ink);
+  background: var(--surface-alt);
+}
+
+.seg { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 6px }
+
+.seg button {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 7px 13px;
+  font-weight: 500;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.seg button[aria-pressed="true"] {
+  background: var(--ink);
+  color: #ffffff;
+  border-color: var(--ink);
+}
+
+.form-actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 20px }
+
+/* ---------- Timeline ---------- */
+.timeline { position: relative; margin: 8px 0 0; padding-left: 24px }
+.timeline::before {
+  content: "";
+  position: absolute;
+  left: 11px;
+  top: 0;
+  bottom: 0;
+  width: 1px;
+  background: var(--border);
+}
+
+.event {
+  position: relative;
+  padding: 12px 12px 12px 14px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--bg);
+  margin-bottom: 10px;
+}
+
+.event::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 15px;
+  width: 10px;
+  height: 10px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.event.conf-Confirmed::before { background: var(--success); border-color: var(--success) }
+.event.conf-Likely::before { background: var(--ink-soft); border-color: var(--ink-soft) }
+.event.conf-Unknown::before { background: var(--ink-muted); border-color: var(--ink-muted) }
+
+.event-top {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+}
+
+.event-time {
+  font-weight: 600;
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px 7px;
+  white-space: nowrap;
+  font-family: var(--font-mono);
+}
+
+.event-title { font-weight: 600; margin: 2px 0 2px; font-size: 13px }
+.event-detail { font-size: 12px; color: var(--ink-soft); margin: 4px 0 0 }
+
+.conf-tag {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  padding: 2px 7px;
+  font-family: var(--font-mono);
+}
+
+.conf-Confirmed-tag { background: #f5f5f5; color: var(--success); border-color: var(--success) }
+.conf-Likely-tag { background: #f5f5f5; color: var(--ink-soft); border-color: var(--border) }
+.conf-Unknown-tag { background: #f5f5f5; color: var(--ink-muted); border-color: var(--border) }
+
+.event-actions { display: flex; gap: 6px; margin-top: 8px; flex-wrap: wrap }
+
+.empty {
+  border: 1px dashed var(--border);
+  border-radius: var(--radius);
+  padding: 18px;
+  text-align: center;
+  color: var(--ink-muted);
+  background: var(--bg);
+}
+
+.add-event { border-top: 1px solid var(--border); margin-top: 20px; padding-top: 20px }
+
+/* ---------- Facts ---------- */
+.fact-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px }
+@media (max-width: 560px) { .fact-grid { grid-template-columns: 1fr } }
+
+.fact-box {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: var(--bg);
+}
+
+.fact-box h3 {
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+  margin: 0 0 8px;
+}
+
+.fact-box ul { margin: 8px 0 0; padding-left: 18px; font-size: 13px }
+.fact-box li { margin: 4px 0; color: var(--ink) }
+
+.alert {
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  font-size: 13px;
+  margin-top: 12px;
+  border: 1px solid var(--border);
+  background: var(--bg);
+  color: var(--ink);
+}
+
+.alert-warn { border-color: var(--warn); color: var(--ink) }
+.alert-bad { border-color: var(--error); color: var(--ink) }
+.alert-good { border-color: var(--success); color: var(--ink) }
+.alert-info { border-color: var(--border); color: var(--ink-soft) }
+
+.alert strong { display: block; margin-bottom: 2px }
+.alert ul { margin: 6px 0 0; padding-left: 18px }
+
+.jargon-item {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: flex-start;
+  padding: 8px 0;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+}
+
+.jargon-item:last-child { border-bottom: 0 }
+
+.jargon-term {
+  font-weight: 600;
+  padding: 1px 6px;
+  white-space: nowrap;
+  color: var(--ink);
+}
+
+.jargon-suggest { color: var(--ink-muted); font-size: 12px; text-align: right }
+
+/* ---------- Channels ---------- */
+.tabs { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 16px }
+
+.tabs button {
+  border: 1px solid var(--border);
+  background: var(--bg);
+  border-radius: var(--radius);
+  padding: 7px 12px;
+  font-weight: 600;
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.tabs button[aria-selected="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: #ffffff;
+}
+
+.channel-panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  background: var(--bg);
+}
+
+.channel-head {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  align-items: center;
+  padding: 12px 14px;
+  background: var(--surface-alt);
+  border-bottom: 1px solid var(--border);
+  flex-wrap: wrap;
+}
+
+.channel-head h3 { margin: 0; font-size: 13px; font-weight: 600 }
+
+.channel-meta { display: flex; gap: 8px; align-items: center; flex-wrap: wrap }
+
+.char-count {
+  font-size: 11px;
+  font-weight: 600;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 2px 8px;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+}
+
+.char-count.ok { border-color: var(--success); color: var(--success) }
+.char-count.over { border-color: var(--error); color: var(--error) }
+
+.channel-body { padding: 16px }
+
+.channel-body textarea {
+  width: 100%;
+  min-height: 140px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px;
+  font-size: 13px;
+  line-height: 1.6;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--font-mono);
+}
+
+.channel-body .preview {
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 14px;
+  white-space: pre-wrap;
+  font-size: 13px;
+  line-height: 1.65;
+  color: var(--ink);
+  font-family: var(--font-mono);
+}
+
+.channel-foot {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  padding: 12px 14px;
+  border-top: 1px solid var(--border);
+  background: var(--bg);
+}
+
+.edited-note {
+  font-size: 11px;
+  color: var(--ink);
+  background: var(--surface-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 5px 9px;
+  margin-top: 10px;
+}
+
+.all-channels { display: grid; gap: 12px; margin-top: 16px }
+
+.mini-channel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 12px 14px;
+  background: var(--bg);
+}
+
+.mini-channel h4 {
+  margin: 0 0 6px;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--ink-muted);
+}
+
+.mini-channel pre {
+  margin: 0;
+  white-space: pre-wrap;
+  font: inherit;
+  font-size: 12px;
+  color: var(--ink);
+  max-height: 150px;
+  overflow: auto;
+}
+
+/* ---------- Checklist ---------- */
+.checklist { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px }
+
+.checklist li {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--bg);
+}
+
+.checklist input {
+  width: 16px;
+  height: 16px;
+  accent-color: var(--ink);
+  margin-top: 2px;
+  flex: none;
+}
+
+.checklist .done-text { color: var(--ink-muted); text-decoration: line-through }
+
+.progress {
+  height: 1px;
+  background: var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  margin-top: 16px;
+}
+
+.progress > div {
+  height: 100%;
+  background: var(--ink);
+  width: 0%;
+  transition: width 0.3s;
+}
+
+.ready-banner {
+  margin-top: 16px;
+  border-radius: var(--radius);
+  padding: 14px;
+  text-align: center;
+  font-weight: 600;
+  border: 1px solid var(--border);
+}
+
+.ready-banner.ready { background: var(--surface-alt); color: var(--ink) }
+.ready-banner.notready { background: var(--bg); color: var(--ink-muted); border-style: dashed }
+
+/* ---------- Log ---------- */
+.log-list { list-style: none; margin: 10px 0 0; padding: 0; display: grid; gap: 8px; font-size: 12px }
+
+.log-list li {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 10px 12px;
+  background: var(--bg);
+}
+
+.log-list time { font-weight: 600; color: var(--ink) }
+
+/* ---------- Toast ---------- */
+.toast {
+  position: fixed;
+  left: 50%;
+  bottom: 24px;
+  transform: translateX(-50%) translateY(20px);
+  background: var(--ink);
+  color: #ffffff;
+  padding: 10px 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 12px;
+  opacity: 0;
+  pointer-events: none;
+  transition: 0.2s;
+  z-index: 50;
+  max-width: 90vw;
+  text-align: center;
+  font-family: var(--font-mono);
+}
+
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0) }
+
+/* ---------- Footer ---------- */
+.footer-note {
+  margin-top: 32px;
+  font-size: 11px;
+  color: var(--ink-muted);
+  text-align: center;
+}
+
+/* ---------- How-to ---------- */
+.howto { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-top: 24px }
+@media (max-width: 800px) { .howto { grid-template-columns: 1fr } }
+
+.howto-step {
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 16px;
+  background: var(--bg);
+}
+
+.howto-step .n {
+  width: 24px;
+  height: 24px;
+  border-radius: var(--radius);
+  background: var(--surface-alt);
+  color: var(--ink-soft);
+  display: grid;
+  place-items: center;
+  font-weight: 600;
+  font-size: 11px;
+  margin-bottom: 8px;
+  font-family: var(--font-mono);
+}
+
+.howto-step h3 { margin: 0 0 4px; font-size: 13px }
+.howto-step p { margin: 0; font-size: 12px; color: var(--ink-soft) }
+
+/* ---------- Print ---------- */
+@media print {
+  body { background: #ffffff }
+  .toast, .top-actions, .form-actions, .event-actions, .tabs, .btn { display: none !important }
+  .card { box-shadow: none; border: 1px solid var(--border); break-inside: avoid }
+  .layout { grid-template-columns: 1fr }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="top-inner">
+    <div class="brand">
+      <div class="logo" aria-hidden="true">
+        <svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 9a15 15 0 0 1 20 0"/><path d="M5.5 12.5a10 10 0 0 1 13 0"/><path d="M9 16a5 5 0 0 1 6 0"/><circle cx="12" cy="19" r="1.2" fill="white" stroke="none"/></svg>
+      </div>
+      <div>
+        <p class="brand-eyebrow">MI4, INC. <span class="by">· by kdmirah lab</span></p>
+        <h1>Outage Comms Studio</h1>
+        <p class="subtitle">Turn a messy outage timeline into clear, consistent customer updates — in minutes, without promising what you can't keep.</p>
+      </div>
+    </div>
+    <div class="top-actions">
+      <button class="btn btn-ghost" id="btnLoadSample" type="button">Load fictional sample</button>
+      <button class="btn btn-primary" id="btnExportTop" type="button">⬇ Download update pack</button>
+    </div>
+  </div>
+</header>
+
+<div class="fictional-bar" role="note">
+  <div class="fictional-inner">
+    <span class="pill pill-amber">⚠ FICTIONAL SCENARIO</span>
+    <span><strong>Synthetic data for training only.</strong> No real network data, no provider branding. Do not use for a real outage without verifying every fact.</span>
+    <span class="pill pill-grey">Estimates &amp; user reports are labelled — not verified coverage data</span>
+  </div>
+</div>
+
+<main>
+  <!-- Hero: who / problem / outcome -->
+  <section class="hero" aria-label="About this tool">
+    <div class="card hero-card">
+      <h2>Built for the person who has to press “send” during an outage</h2>
+      <p class="muted" style="margin:6px 0 0">When the network goes down, the technical timeline is full of jargon, guesses and half-confirmed causes. Customers hear something different on every channel, support gets flooded, and well-meant ETAs become broken promises. This tool turns one checked set of facts into every channel message — consistently.</p>
+      <div class="who-grid">
+        <div class="who-box"><div class="label">Who it's for</div><p><strong>Outage comms lead / duty manager</strong> in network ops who owns customer updates under time pressure.</p></div>
+        <div class="who-box"><div class="label">Problem it solves</div><p>Inconsistent, jargon-heavy updates across SMS, app, status page and support — with invented ETAs and hidden uncertainty.</p></div>
+        <div class="who-box"><div class="label">Outcome you get</div><p>A <strong>ready-to-send update pack</strong>: checked facts, 7 channel-ready messages, pre-send checklist and exportable log.</p></div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>How it works</h2>
+      <p class="muted" style="margin:0">Four steps. No account, no upload — everything stays in your browser.</p>
+      <ol style="margin:12px 0 0;padding-left:20px;font-size:14.5px">
+        <li><strong>Set the incident</strong> — area, services, next update time, tone.</li>
+        <li><strong>Build the timeline</strong> — log what happened and how sure you are.</li>
+        <li><strong>Check the facts</strong> — jargon, risky promises and unknowns flagged automatically.</li>
+        <li><strong>Send with confidence</strong> — copy each channel message, tick the checklist, export the pack.</li>
+      </ol>
+      <div style="margin-top:14px;display:flex;gap:8px;flex-wrap:wrap">
+        <span class="pill pill-green">✓ Works offline</span>
+        <span class="pill pill-grey">✓ Auto-saves in browser</span>
+        <span class="pill pill-grey">✓ EN + Bahasa Melayu</span>
+      </div>
+    </div>
+  </section>
+
+  <div class="steps" aria-label="Progress">
+    <div class="step active" id="step1"><span class="num">1</span> Incident</div>
+    <div class="step" id="step2"><span class="num">2</span> Timeline</div>
+    <div class="step" id="step3"><span class="num">3</span> Facts check</div>
+    <div class="step" id="step4"><span class="num">4</span> Send pack</div>
+  </div>
+
+  <div class="layout">
+    <!-- LEFT -->
+    <div class="stack">
+      <!-- Incident -->
+      <section class="card" id="incidentCard" aria-labelledby="incidentH">
+        <div class="section-head">
+          <div>
+            <h2 id="incidentH">1 · Incident details</h2>
+            <p class="muted small">Only enter facts you can stand behind. Leave cause blank if unknown — the tool will say so honestly.</p>
+          </div>
+          <span class="pill pill-amber">Fictional by default</span>
+        </div>
+
+        <label for="fTitle">Incident title
+          <span class="hint">Short, plain name. e.g. “Fibre disruption — Kota Bharu (fictional)”</span>
+        </label>
+        <input type="text" id="fTitle" placeholder="e.g. Fibre disruption — Kota Bharu (fictional)">
+
+        <div class="row2">
+          <div>
+            <label for="fArea">Affected area
+              <span class="hint">As specific as you can verify.</span>
+            </label>
+            <input type="text" id="fArea" placeholder="e.g. Kota Bharu town centre">
+          </div>
+          <div>
+            <label for="fStart">Start time (approx.)
+            </label>
+            <input type="time" id="fStart">
+          </div>
+        </div>
+
+        <label>Services affected</label>
+        <div class="checks" id="serviceChecks">
+          <label class="check-chip"><input type="checkbox" value="Broadband" checked> Broadband</label>
+          <label class="check-chip"><input type="checkbox" value="Mobile data"> Mobile data</label>
+          <label class="check-chip"><input type="checkbox" value="Voice calls"> Voice calls</label>
+          <label class="check-chip"><input type="checkbox" value="TV"> TV</label>
+        </div>
+
+        <div class="row2">
+          <div>
+            <label for="fSeverity">Severity</label>
+            <select id="fSeverity">
+              <option value="Minor">Minor — limited impact</option>
+              <option value="Major" selected>Major — many customers affected</option>
+              <option value="Critical">Critical — widespread / essential services</option>
+            </select>
+          </div>
+          <div>
+            <label for="fNextUpdate">Next update time <span style="color:var(--red)">*</span>
+              <span class="hint">Always give a next update time — even if it's “we'll update by 11:00”. Never promise a fix time.</span>
+            </label>
+            <input type="time" id="fNextUpdate">
+          </div>
+        </div>
+
+        <label for="fCause">What we know about the cause <span class="hint">(optional — leave blank if unknown)</span></label>
+        <input type="text" id="fCause" placeholder="e.g. Damage to underground fibre cable during roadworks">
+        <label>How sure are you about the cause?</label>
+        <div class="seg" id="causeConfSeg" role="group" aria-label="Cause confidence">
+          <button type="button" data-v="Confirmed" aria-pressed="false">Confirmed</button>
+          <button type="button" data-v="Likely" aria-pressed="true">Likely</button>
+          <button type="button" data-v="Unknown" aria-pressed="false">Unknown</button>
+        </div>
+
+        <label for="fDoing">What we're doing now</label>
+        <textarea id="fDoing" placeholder="e.g. Our field crew is on site locating the damage and preparing a repair."></textarea>
+
+        <label for="fCanDo">What customers can do</label>
+        <textarea id="fCanDo" placeholder="e.g. Restart your router once. If you still have no service, no need to call — we'll update at the time above."></textarea>
+
+        <label>Tone</label>
+        <div class="seg" id="toneSeg" role="group" aria-label="Tone">
+          <button type="button" data-v="calm" aria-pressed="true">Calm &amp; factual</button>
+          <button type="button" data-v="apologetic" aria-pressed="false">Apologetic</button>
+          <button type="button" data-v="urgent" aria-pressed="false">Urgent</button>
+        </div>
+
+        <label>Message language</label>
+        <div class="seg" id="langSeg" role="group" aria-label="Language">
+          <button type="button" data-v="en" aria-pressed="true">English</button>
+          <button type="button" data-v="ms" aria-pressed="false">Bahasa Melayu</button>
+        </div>
+
+        <div class="form-actions">
+          <button class="btn btn-primary" id="btnRefresh" type="button">↻ Refresh all messages</button>
+          <button class="btn btn-outline" id="btnClear" type="button">Clear all</button>
+        </div>
+        <p class="muted small" style="margin:10px 0 0">Tip: messages refresh automatically as you type. “Refresh” re-generates from templates and clears manual edits.</p>
+      </section>
+
+      <!-- Timeline -->
+      <section class="card" id="timelineCard" aria-labelledby="timelineH">
+        <div class="section-head">
+          <div>
+            <h2 id="timelineH">2 · Timeline</h2>
+            <p class="muted small">Log events in order. Tag confidence honestly — <strong>Confirmed</strong> (verified), <strong>Likely</strong> (strong indication), <strong>Unknown</strong> (still investigating). The tool words messages accordingly.</p>
+          </div>
+          <span class="pill pill-grey" id="eventCount">0 events</span>
+        </div>
+
+        <div id="eventList" class="timeline" aria-live="polite"></div>
+
+        <div class="add-event">
+          <h3 style="margin:0 0 4px">Add an event</h3>
+          <div class="row2">
+            <div>
+              <label for="eTime">Time</label>
+              <input type="time" id="eTime">
+            </div>
+            <div>
+              <label for="eConf">Confidence</label>
+              <select id="eConf">
+                <option value="Confirmed">Confirmed — verified</option>
+                <option value="Likely">Likely — strong indication</option>
+                <option value="Unknown" selected>Unknown — investigating</option>
+              </select>
+            </div>
+          </div>
+          <label for="eTitle">What happened?</label>
+          <input type="text" id="eTitle" placeholder="e.g. Field crew dispatched to site">
+          <label for="eDetail">Detail (optional)</label>
+          <textarea id="eDetail" placeholder="e.g. Crew ETA 30 minutes. Access via side road."></textarea>
+          <div class="form-actions">
+            <button class="btn btn-primary" id="btnAddEvent" type="button">+ Add to timeline</button>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- RIGHT -->
+    <div class="stack">
+      <!-- Facts check -->
+      <section class="card" id="factsCard" aria-labelledby="factsH">
+        <div class="section-head">
+          <div>
+            <h2 id="factsH">3 · Facts check</h2>
+            <p class="muted small">Automatic review before anything goes out. Fix warnings first.</p>
+          </div>
+          <span class="pill pill-grey" id="factsScore">—</span>
+        </div>
+        <div class="fact-grid">
+          <div class="fact-box">
+            <h3>✓ What we know (confirmed)</h3>
+            <ul id="knownList"></ul>
+          </div>
+          <div class="fact-box">
+            <h3>? What we don't know yet</h3>
+            <ul id="unknownList"></ul>
+          </div>
+        </div>
+        <div id="alerts"></div>
+        <div style="margin-top:14px">
+          <h3 style="margin:0 0 4px">Plain-English check — jargon found</h3>
+          <p class="muted small" style="margin:0">Technical terms confuse customers. Replace with the plain suggestion.</p>
+          <div id="jargonList" style="margin-top:6px"></div>
+        </div>
+      </section>
+
+      <!-- Channels -->
+      <section class="card" id="channelsCard" aria-labelledby="channelsH">
+        <div class="section-head">
+          <div>
+            <h2 id="channelsH">4 · Customer updates — ready to send</h2>
+            <p class="muted small">Same facts, every channel. Edit any message — edits are kept until you refresh. Character limits are enforced for SMS &amp; push.</p>
+          </div>
+          <button class="btn btn-outline btn-small" id="btnCopyAll" type="button">Copy all</button>
+        </div>
+        <div class="tabs" role="tablist" aria-label="Channels" id="channelTabs"></div>
+        <div id="channelPanel"></div>
+        <div class="all-channels" id="allChannels"></div>
+      </section>
+
+      <!-- Checklist -->
+      <section class="card" id="checklistCard" aria-labelledby="checkH">
+        <div class="section-head">
+          <div>
+            <h2 id="checkH">Pre-send checklist</h2>
+            <p class="muted small">All five must be ticked before you mark this pack as ready.</p>
+          </div>
+          <span class="pill pill-grey" id="checkCount">0 / 5</span>
+        </div>
+        <ul class="checklist" id="checklist"></ul>
+        <div class="progress" aria-hidden="true"><div id="progressBar"></div></div>
+        <div class="ready-banner notreadday" id="readyBanner">Not ready yet — complete the checklist above.</div>
+        <div class="form-actions">
+          <button class="btn btn-primary" id="btnMarkSent" type="button">✓ Mark as sent &amp; log update</button>
+          <button class="btn btn-outline" id="btnPrint" type="button">🖨 Print pack</button>
+        </div>
+      </section>
+
+      <!-- Log -->
+      <section class="card" aria-labelledby="logH">
+        <div class="section-head">
+          <div>
+            <h2 id="logH">Update log</h2>
+            <p class="muted small">Every “mark as sent” is recorded here with the next update time. Keep this for the post-incident review.</p>
+          </div>
+          <button class="btn btn-outline btn-small" id="btnClearLog" type="button">Clear log</button>
+        </div>
+        <ul class="log-list" id="logList"></ul>
+      </section>
+    </div>
+  </div>
+
+  <!-- How to use / safety -->
+  <section class="card" style="margin-top:18px" aria-labelledby="howH">
+    <h2 id="howH">How to use this in a real incident (and what it won't do)</h2>
+    <div class="howto">
+      <div class="howto-step"><div class="n">1</div><h3>Start from facts, not drafts</h3><p>Fill in only what the network team has confirmed. If the cause is unknown, leave it blank — messages will honestly say “still investigating” instead of inventing a story.</p></div>
+      <div class="howto-step"><div class="n">2</div><h3>Never promise a fix time</h3><p>Give a <strong>next update time</strong> instead. The tool flags ETA promises (“fixed by 2pm”, “within 3 hours”) and rewrites them as update commitments.</p></div>
+      <div class="howto-step"><div class="n">3</div><h3>One pack, every channel</h3><p>Copy SMS, push, status page, social, email, support script and IVR from the same checked facts. Export the pack for the incident record.</p></div>
+    </div>
+    <div class="alert alert-info" style="margin-top:14px">
+      <strong>Data &amp; safety — read this</strong>
+      <ul>
+        <li><strong>Fictional by default:</strong> the sample scenario is synthetic. No real customer data, network telemetry or provider branding is used.</li>
+        <li><strong>Uncertainty is labelled:</strong> “Likely” and “Unknown” items are worded as such in every message. User reports are never presented as verified coverage data.</li>
+        <li><strong>Your data stays here:</strong> everything is stored only in your browser (localStorage). Nothing is uploaded. Clear it anytime with “Clear all”.</li>
+        <li><strong>Human approval required:</strong> the checklist and duty-manager sign-off are part of the workflow — the tool never auto-sends anything.</li>
+      </ul>
+    </div>
+  </section>
+
+  <p class="footer-note">Outage Comms Studio · Built for connectivity teams · Synthetic training data only · <span id="year"></span></p>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(function(){
+  "use strict";
+
+  // ---------- Data ----------
+  var SAMPLE = {
+    incident: {
+      title: "Fibre disruption — Kota Bharu (fictional)",
+      area: "Kota Bharu town centre",
+      services: ["Broadband"],
+      startTime: "09:12",
+      severity: "Major",
+      nextUpdate: "11:00",
+      cause: "Damage to underground fibre cable during roadworks",
+      causeConf: "Likely",
+      doing: "Our field crew is on site locating the damage and preparing a repair.",
+      canDo: "Restart your router once. If you still have no service, you don't need to call — we'll update you at the time above.",
+      tone: "calm",
+      lang: "en"
+    },
+    events: [
+      {id:"e1", time:"09:12", title:"Customers report no broadband in Kota Bharu town centre", detail:"Multiple reports via app and support line. Pattern matches a single area, not individual routers.", conf:"Confirmed"},
+      {id:"e2", time:"09:28", title:"Network team detects fault on fibre link serving the area", detail:"Link down at aggregation point. No equipment alarm at customer premises.", conf:"Confirmed"},
+      {id:"e3", time:"09:45", title:"Field crew dispatched to locate damage", detail:"Crew ETA 30 minutes. Access via side road near works site.", conf:"Confirmed"},
+      {id:"e4", time:"10:10", title:"Likely cause: roadworks damage to underground cable", detail:"Works activity recorded near cable route. Physical inspection still under way — not yet confirmed.", conf:"Likely"}
+    ]
+  };
+
+  var JARGON = [
+    {term:"fibre cut", suggest:"damage to the cable"},
+    {term:"fibre", suggest:"fibre cable (explain it's the cable carrying your broadband)"},
+    {term:"node", suggest:"local equipment box"},
+    {term:"backhaul", suggest:"main link carrying traffic to your area"},
+    {term:"NOC", suggest:"our network operations team"},
+    {term:"SLA", suggest:"service guarantee (explain what it means)"},
+    {term:"provisioning", suggest:"setting up / activating"},
+    {term:"downstream", suggest:"download speed"},
+    {term:"upstream", suggest:"upload speed"},
+    {term:"outage", suggest:"disruption / loss of service (use consistently)"},
+    {term:"degraded service", suggest:"slower or unreliable service"},
+    {term:"last mile", suggest:"the final cable to your home"},
+    {term:"aggregation", suggest:"local connection point"},
+    {term:"trunk", suggest:"main cable"},
+    {term:"patch", suggest:"temporary repair"},
+    {term:"MTTR", suggest:"average repair time (avoid the acronym)"}
+  ];
+
+  var ETA_PATTERNS = [
+    {re:/will be fixed by/i, label:"“will be fixed by …” promises a fix time"},
+    {re:/fixed within \d+\s*(hour|minute)/i, label:"“fixed within …” promises a fix time"},
+    {re:/restored by \d/i, label:"“restored by …” promises a fix time"},
+    {re:/back up by/i, label:"“back up by …” promises a fix time"},
+    {re:/we guarantee/i, label:"“we guarantee …” over-promises"},
+    {re:/definitely/i, label:"“definitely” overstates certainty"},
+    {re:/no later than/i, label:"“no later than …” promises a fix time"}
+  ];
+
+  var CHANNELS = [
+    {id:"sms", name:"📱 SMS", limit:160, desc:"160 characters max. Include next update time."},
+    {id:"push", name:"🔔 App push", limit:120, desc:"Short title + body. Tap goes to status page."},
+    {id:"status", name:"🌐 Status page", limit:null, desc:"Full public update. Include unknowns honestly."},
+    {id:"social", name:"🐦 Social post", limit:280, desc:"280 characters. Plain English, no jargon."},
+    {id:"email", name:"✉️ Email", limit:null, desc:"For affected customers. Subject + body."},
+    {id:"support", name:"🎧 Support script", limit:null, desc:"What agents say — and what not to promise."},
+    {id:"ivr", name:"☎️ IVR message", limit:null, desc:"Spoken script for callers. Short sentences."}
+  ];
+
+  var CHECKLIST_ITEMS = [
+    {id:"plain", label:"Plain English checked — no jargon left unexplained"},
+    {id:"consistent", label:"Same facts across all channels (area, services, next update)"},
+    {id:"noeta", label:"No fix time promised — next update time given instead"},
+    {id:"nextupdate", label:"Next update time set and included in every message"},
+    {id:"approved", label:"Approved by duty manager (name the approver in the log)"}
+  ];
+
+  // ---------- State ----------
+  var LS_KEY = "outage-comms-studio-v1";
+  var state = load() || freshState();
+
+  function freshState(){
+    return {
+      incident: JSON.parse(JSON.stringify(SAMPLE.incident)),
+      events: JSON.parse(JSON.stringify(SAMPLE.events)),
+      edits: {},
+      checklist: {plain:false, consistent:false, noeta:false, nextupdate:false, approved:false},
+      log: [],
+      activeChannel: "sms"
+    };
+  }
+
+  function load(){
+    try{
+      var raw = localStorage.getItem(LS_KEY);
+      if(!raw) return null;
+      var s = JSON.parse(raw);
+      if(!s || !s.incident || !Array.isArray(s.events)) return null;
+      return s;
+    }catch(e){ return null; }
+  }
+  function save(){
+    try{ localStorage.setItem(LS_KEY, JSON.stringify(state)); }catch(e){}
+  }
+
+  // ---------- Helpers ----------
+  function $(id){ return document.getElementById(id); }
+  function esc(s){ return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;"); }
+  function servicesText(){
+    var s = state.incident.services || [];
+    if(!s.length) return "services";
+    if(s.length===1) return s[0].toLowerCase();
+    return s.slice(0,-1).join(", ").toLowerCase() + " and " + s[s.length-1].toLowerCase();
+  }
+  function servicesTextMS(){
+    var s = state.incident.services || [];
+    var map = {"Broadband":"jalur lebar","Mobile data":"data mudah alih","Voice calls":"panggilan suara","TV":"TV"};
+    var t = s.map(function(x){ return map[x]||x; });
+    if(!t.length) return "perkhidmatan";
+    if(t.length===1) return t[0];
+    return t.slice(0,-1).join(", ") + " dan " + t[t.length-1];
+  }
+  function latestEvent(){
+    if(!state.events.length) return null;
+    return state.events[state.events.length-1];
+  }
+  function latestConfirmed(){
+    for(var i=state.events.length-1;i>=0;i--){
+      if(state.events[i].conf==="Confirmed") return state.events[i];
+    }
+    return null;
+  }
+  function fmtTime(t){
+    if(!t) return "—";
+    return t;
+  }
+  function toast(msg){
+    var el = $("toast");
+    el.textContent = msg;
+    el.classList.add("show");
+    clearTimeout(el._t);
+    el._t = setTimeout(function(){ el.classList.remove("show"); }, 2400);
+  }
+  function copyText(text, label){
+    function done(){ toast((label||"Copied") + " — ready to paste."); }
+    if(navigator.clipboard && navigator.clipboard.writeText){
+      navigator.clipboard.writeText(text).then(done, function(){ fallback(); });
+    } else fallback();
+    function fallback(){
+      var ta = document.createElement("textarea");
+      ta.value = text; ta.style.position="fixed"; ta.style.opacity="0";
+      document.body.appendChild(ta); ta.select();
+      try{ document.execCommand("copy"); done(); }catch(e){ toast("Copy failed — select the text and copy manually."); }
+      document.body.removeChild(ta);
+    }
+  }
+
+  // ---------- Message generation ----------
+  function causeSentence(lang){
+    var c = (state.incident.cause||"").trim();
+    var conf = state.incident.causeConf || "Unknown";
+    if(!c){
+      return lang==="ms"
+        ? "Kami masih menyiasat punca gangguan ini dan akan berkongsi maklumat yang disahkan apabila ada."
+        : "We're still investigating the cause and will share confirmed information as soon as we have it.";
+    }
+    if(conf==="Confirmed"){
+      return lang==="ms" ? ("Punca yang disahkan: " + c + ".") : ("Confirmed cause: " + c + ".");
+    }
+    if(conf==="Likely"){
+      return lang==="ms" ? ("Punca yang berkemungkinan: " + c + ". Siasatan lanjut masih dijalankan.") : ("Likely cause: " + c + ". We're still verifying this.");
+    }
+    return lang==="ms"
+      ? ("Kami sedang menyiasat punca yang mungkin berkaitan dengan: " + c + ". Belum disahkan.")
+      : ("We're investigating a possible cause related to: " + c + ". Not yet confirmed.");
+  }
+
+  function generate(id){
+    var inc = state.incident;
+    var lang = inc.lang || "en";
+    var tone = inc.tone || "calm";
+    var area = (inc.area||"your area").trim() || "your area";
+    var svc = lang==="ms" ? servicesTextMS() : servicesText();
+    var next = fmtTime(inc.nextUpdate);
+    var doing = (inc.doing||"").trim();
+    var canDo = (inc.canDo||"").trim();
+    var latest = latestEvent();
+    var latestTitle = latest ? latest.title : "";
+    var cause = causeSentence(lang);
+
+    var apologyEN = tone==="apologetic" ? "We're very sorry for the disruption. " : (tone==="urgent" ? "We're treating this as a priority. " : "We're sorry for the disruption. ");
+    var apologyMS = tone==="apologetic" ? "Kami memohon maaf yang tulus atas gangguan ini. " : (tone==="urgent" ? "Kami mengutamakannya. " : "Kami memohon maaf atas gangguan ini. ");
+
+    var doingShortEN = doing ? doing : "Our team is working on a fix.";
+    var doingShortMS = doing ? doing : "Pasukan kami sedang berusaha membaikinya.";
+
+    if(lang==="ms"){
+      switch(id){
+        case "sms": {
+          var t = "Kemas kini: gangguan " + svc + " di " + area + ". " + doingShortMS + " Kemas kini seterusnya: " + next + ". " + apologyMS;
+          return t;
+        }
+        case "push": {
+          return "Gangguan " + svc + " di " + area + "\n" + doingShortMS + " Kemas kini seterusnya: " + next + ". Ketik untuk butiran.";
+        }
+        case "status": {
+          return "Gangguan " + svc + " di " + area + " — kami sedang berusaha\n\n" +
+            "Apa yang berlaku\n" + (latestTitle ? latestTitle + ". " : "") + cause + "\n\n" +
+            "Apa yang kami lakukan\n" + (doing || "Pasukan kami sedang menyiasat dan berusaha membaikinya.") + "\n\n" +
+            "Apa yang anda boleh lakukan\n" + (canDo || "Tiada tindakan diperlukan. Kami akan mengemas kini pada masa yang dinyatakan.") + "\n\n" +
+            "Apa yang kami belum tahu\nKami belum dapat mengesahkan masa pembaikan. Kami akan mengemas kini pada " + next + " atau lebih awal jika ada maklumat baharu yang disahkan.\n\n" +
+            "Kemas kini seterusnya: " + next + "\n" + apologyMS;
+        }
+        case "social": {
+          return "Kemas kini " + area + ": " + svc + " terganggu. " + doingShortMS + " Kami akan mengemas kini lagi pada " + next + ". Terima kasih atas kesabaran anda.";
+        }
+        case "email": {
+          return "Subjek: Kemas kini: gangguan " + svc + " di " + area + "\n\n" +
+            "Pelanggan yang dihormati,\n\n" +
+            "Kami ingin memaklumkan bahawa " + svc + " di " + area + " sedang terganggu. " + cause + "\n\n" +
+            (doing ? "Apa yang kami lakukan: " + doing + "\n\n" : "") +
+            (canDo ? "Apa yang anda boleh lakukan: " + canDo + "\n\n" : "") +
+            "Kami akan mengemas kini anda pada " + next + " atau lebih awal jika ada maklumat baharu.\n\n" +
+            apologyMS + "\n\nTerima kasih atas kesabaran anda.";
+        }
+        case "support": {
+          return "SKRIP SOKONGAN — " + area + " (" + (inc.severity||"") + ")\n\n" +
+            "Pembukaan: “Terima kasih kerana menghubungi kami. Kami sedar tentang gangguan " + svc + " di " + area + " dan pasukan kami sedang berusaha membaikinya.”\n\n" +
+            "Jika ditanya “Bila akan siap?”\nJawab: “Kami belum dapat mengesahkan masa pembaikan. Kemas kini seterusnya pada " + next + " dan kami akan memaklumkan anda sebaik sahaja ada maklumat yang disahkan.” Jangan janjikan masa pembaikan.\n\n" +
+            "Jika ditanya “Apa puncanya?”\nJawab: " + cause + "\n\n" +
+            "Jika ditanya “Bolehkah saya dapat pampasan?”\nJawab: “Saya faham ini menyusahkan. Saya akan semak kelayakan anda mengikut dasar semasa dan tidak akan membuat janji yang tidak dapat ditunaikan.”\n\n" +
+            "JANGAN KATA: masa pembaikan yang pasti, punca yang belum disahkan sebagai fakta, atau menyalahkan pihak lain.";
+        }
+        case "ivr": {
+          return "Terima kasih kerana menghubungi kami. Kami sedar tentang gangguan " + svc + " di " + area + ". Pasukan kami sedang berusaha membaikinya. Kami akan mengemas kini pada " + next + ". Tiada tindakan diperlukan. Terima kasih atas kesabaran anda.";
+        }
+      }
+    } else {
+      switch(id){
+        case "sms": {
+          return "Update: " + svc + " disruption in " + area + ". " + doingShortEN + " Next update: " + next + ". " + apologyEN;
+        }
+        case "push": {
+          return "Service disruption in " + area + "\n" + svc.charAt(0).toUpperCase()+svc.slice(1) + " is disrupted. " + doingShortEN + " Next update: " + next + ". Tap for details.";
+        }
+        case "status": {
+          return svc.charAt(0).toUpperCase()+svc.slice(1) + " disruption in " + area + " — we're working on it\n\n" +
+            "What happened\n" + (latestTitle ? latestTitle + ". " : "") + cause + "\n\n" +
+            "What we're doing\n" + (doing || "Our team is investigating and working on a fix.") + "\n\n" +
+            "What you can do\n" + (canDo || "No action needed. We'll update you at the time below.") + "\n\n" +
+            "What we don't know yet\nWe can't yet confirm a fix time. We'll update you at " + next + ", or sooner if we have confirmed news.\n\n" +
+            "Next update: " + next + "\n" + apologyEN;
+        }
+        case "social": {
+          return "Update on " + area + ": " + svc + " is disrupted. " + doingShortEN + " We'll update again at " + next + ". Thanks for your patience.";
+        }
+        case "email": {
+          return "Subject: Update: " + svc + " disruption in " + area + "\n\n" +
+            "Dear customer,\n\n" +
+            "We're writing to let you know that " + svc + " in " + area + " is currently disrupted. " + cause + "\n\n" +
+            (doing ? "What we're doing: " + doing + "\n\n" : "") +
+            (canDo ? "What you can do: " + canDo + "\n\n" : "") +
+            "We'll update you at " + next + ", or sooner if we have confirmed news.\n\n" +
+            apologyEN + "\n\nThank you for your patience.";
+        }
+        case "support": {
+          return "SUPPORT SCRIPT — " + area + " (" + (inc.severity||"") + ")\n\n" +
+            "Opening: “Thanks for calling. We're aware of a " + svc + " disruption in " + area + " and our team is working on it.”\n\n" +
+            "If asked “When will it be fixed?”\nSay: “We can't yet confirm a fix time. Our next update is at " + next + " and we'll let you know as soon as we have confirmed news.” Do not promise a fix time.\n\n" +
+            "If asked “What's the cause?”\nSay: " + cause + "\n\n" +
+            "If asked “Can I get compensation?”\nSay: “I understand this is frustrating. I'll check your eligibility under our current policy and won't promise anything I can't confirm.”\n\n" +
+            "DO NOT SAY: a definite fix time, an unconfirmed cause as fact, or blame another party.";
+        }
+        case "ivr": {
+          return "Thank you for calling. We're aware of a " + svc + " disruption in " + area + ". Our team is working on it. We'll update you at " + next + ". No action is needed. Thank you for your patience.";
+        }
+      }
+    }
+    return "";
+  }
+
+  function getMessage(id){
+    if(state.edits && state.edits[id] != null) return state.edits[id];
+    return generate(id);
+  }
+
+  // ---------- Rendering ----------
+  function renderIncident(){
+    var inc = state.incident;
+    $("fTitle").value = inc.title||"";
+    $("fArea").value = inc.area||"";
+    $("fStart").value = inc.startTime||"";
+    $("fSeverity").value = inc.severity||"Major";
+    $("fNextUpdate").value = inc.nextUpdate||"";
+    $("fCause").value = inc.cause||"";
+    $("fDoing").value = inc.doing||"";
+    $("fCanDo").value = inc.canDo||"";
+    var checks = $("serviceChecks").querySelectorAll("input[type=checkbox]");
+    checks.forEach(function(cb){ cb.checked = (inc.services||[]).indexOf(cb.value) >= 0; });
+    setSeg("causeConfSeg", inc.causeConf||"Likely");
+    setSeg("toneSeg", inc.tone||"calm");
+    setSeg("langSeg", inc.lang||"en");
+  }
+  function setSeg(id, val){
+    var seg = $(id);
+    seg.querySelectorAll("button").forEach(function(b){ b.setAttribute("aria-pressed", b.dataset.v===val ? "true":"false"); });
+  }
+  function getSeg(id){
+    var b = $(id).querySelector("button[aria-pressed='true']");
+    return b ? b.dataset.v : "";
+  }
+
+  function renderEvents(){
+    var list = $("eventList");
+    $("eventCount").textContent = state.events.length + (state.events.length===1?" event":" events");
+    if(!state.events.length){
+      list.innerHTML = '<div class="empty">No timeline events yet.<br>Add the first event below — even “customers reported a problem” counts.</div>';
+      return;
+    }
+    list.innerHTML = state.events.map(function(e){
+      var confClass = e.conf==="Confirmed" ? "conf-Confirmed-tag" : (e.conf==="Likely" ? "conf-Likely-tag" : "conf-Unknown-tag");
+      return '<article class="event conf-'+esc(e.conf)+'">' +
+        '<div class="event-top"><div><span class="event-time">'+esc(e.time||"—")+'</span> <span class="conf-tag '+confClass+'">'+esc(e.conf)+'</span></div>' +
+        '<div class="event-actions"><button class="btn btn-outline btn-small" data-edit="'+esc(e.id)+'" type="button">Edit</button>' +
+        '<button class="btn btn-danger-ghost btn-small" data-del="'+esc(e.id)+'" type="button">Delete</button></div></div>' +
+        '<p class="event-title">'+esc(e.title)+'</p>' +
+        (e.detail ? '<p class="event-detail">'+esc(e.detail)+'</p>' : '') +
+        '</article>';
+    }).join("");
+    list.querySelectorAll("[data-del]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var id = b.dataset.del;
+        state.events = state.events.filter(function(e){ return e.id!==id; });
+        save(); renderAll(); toast("Event deleted.");
+      });
+    });
+    list.querySelectorAll("[data-edit]").forEach(function(b){
+      b.addEventListener("click", function(){
+        var id = b.dataset.edit;
+        var e = state.events.find(function(x){ return x.id===id; });
+        if(!e) return;
+        $("eTime").value = e.time||"";
+        $("eConf").value = e.conf||"Unknown";
+        $("eTitle").value = e.title||"";
+        $("eDetail").value = e.detail||"";
+        $("btnAddEvent").textContent = "Save changes";
+        $("btnAddEvent").dataset.editing = id;
+        $("eTitle").focus();
+        $("timelineCard").scrollIntoView({behavior:"smooth", block:"start"});
+      });
+    });
+  }
+
+  function collectAllText(){
+    var inc = state.incident;
+    var parts = [inc.title, inc.area, inc.cause, inc.doing, inc.canDo];
+    state.events.forEach(function(e){ parts.push(e.title); parts.push(e.detail); });
+    CHANNELS.forEach(function(c){ parts.push(getMessage(c.id)); });
+    return parts.join("\n");
+  }
+
+  function findJargon(){
+    var text = collectAllText().toLowerCase();
+    var found = [];
+    JARGON.forEach(function(j){
+      var idx = text.indexOf(j.term.toLowerCase());
+      if(idx>=0) found.push(j);
+    });
+    return found;
+  }
+
+  function findRisks(){
+    var risks = [];
+    var text = collectAllText();
+    ETA_PATTERNS.forEach(function(p){
+      if(p.re.test(text)) risks.push(p.label);
+    });
+    if(!state.incident.nextUpdate) risks.push("No next update time set — every message must include one.");
+    if(!(state.incident.doing||"").trim()) risks.push("“What we're doing” is blank — customers need to know someone is working on it.");
+    if(!(state.incident.canDo||"").trim()) risks.push("“What customers can do” is blank — add one clear action (or “no action needed”).");
+    if(!(state.incident.area||"").trim()) risks.push("Affected area is blank — messages will say “your area”, which feels vague.");
+    if(!(state.incident.services||[]).length) risks.push("No services selected — specify what's affected.");
+    if(state.incident.causeConf==="Unknown" && (state.incident.cause||"").trim()) risks.push("Cause is marked Unknown but a cause is written — messages will word it as “possible, not confirmed”. Double-check this is accurate.");
+    // duplicate risk dedupe
+    var seen={}, out=[];
+    risks.forEach(function(r){ if(!seen[r]){ seen[r]=1; out.push(r);} });
+    return out;
+  }
+
+  function renderFacts(){
+    var inc = state.incident;
+    var known = [], unknown = [];
+    if((inc.area||"").trim()) known.push("Area: " + inc.area);
+    if((inc.services||[]).length) known.push("Services: " + inc.services.join(", "));
+    if(inc.startTime) known.push("Start time (approx.): " + inc.startTime);
+    if((inc.doing||"").trim()) known.push("Action under way: " + inc.doing);
+    if((inc.cause||"").trim()){
+      if(inc.causeConf==="Confirmed") known.push("Cause (confirmed): " + inc.cause);
+      else unknown.push("Cause (" + (inc.causeConf||"Unknown").toLowerCase() + ", not confirmed): " + inc.cause);
+    } else {
+      unknown.push("Cause: not yet known — messages say “still investigating”.");
+    }
+    unknown.push("Fix time: not confirmed — messages give next update time instead.");
+    state.events.forEach(function(e){
+      var line = (e.time?e.time+" — ":"") + e.title;
+      if(e.conf==="Confirmed") known.push(line);
+      else unknown.push(line + " [" + e.conf + "]");
+    });
+    if(!known.length) known.push("Nothing confirmed yet — add incident details and timeline events.");
+    if(!unknown.length) unknown.push("—");
+
+    $("knownList").innerHTML = known.map(function(k){ return "<li>"+esc(k)+"</li>"; }).join("");
+    $("unknownList").innerHTML = unknown.map(function(k){ return "<li>"+esc(k)+"</li>"; }).join("");
+
+    var jargon = findJargon();
+    var risks = findRisks();
+    var alerts = "";
+    if(risks.length){
+      alerts += '<div class="alert alert-bad"><strong>⚠ Fix before sending ('+risks.length+')</strong><ul>' +
+        risks.map(function(r){ return "<li>"+esc(r)+"</li>"; }).join("") + "</ul></div>";
+    } else {
+      alerts += '<div class="alert alert-good"><strong>✓ No blocking risks found</strong>Next update time set, no ETA promises detected, and all key fields filled.</div>';
+    }
+    if(jargon.length){
+      alerts += '<div class="alert alert-warn"><strong>Plain-English: '+jargon.length+' jargon term'+(jargon.length>1?"s":"")+' to replace</strong>See suggestions below. Customers should not need a glossary to understand an outage.</div>';
+    }
+    $("alerts").innerHTML = alerts;
+
+    if(jargon.length){
+      $("jargonList").innerHTML = jargon.map(function(j){
+        return '<div class="jargon-item"><span class="jargon-term">'+esc(j.term)+'</span><span class="jargon-suggest">→ '+esc(j.suggest)+'</span></div>';
+      }).join("");
+    } else {
+      $("jargonList").innerHTML = '<p class="muted small" style="margin:6px 0 0">✓ No jargon detected. Good — keep it that way.</p>';
+    }
+
+    var score = risks.length===0 && jargon.length===0 ? "✓ Clear" : (risks.length ? "⚠ "+risks.length+" to fix" : "◐ Check jargon");
+    var pill = $("factsScore");
+    pill.textContent = score;
+    pill.className = "pill " + (risks.length ? "pill-red" : (jargon.length ? "pill-amber" : "pill-green"));
+  }
+
+  function renderChannels(){
+    var tabs = $("channelTabs");
+    tabs.innerHTML = CHANNELS.map(function(c){
+      return '<button role="tab" data-ch="'+c.id+'" aria-selected="'+(state.activeChannel===c.id)+'">'+esc(c.name)+'</button>';
+    }).join("");
+    tabs.querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click", function(){ state.activeChannel = b.dataset.ch; save(); renderChannels(); });
+    });
+
+    var ch = CHANNELS.find(function(c){ return c.id===state.activeChannel; }) || CHANNELS[0];
+    var msg = getMessage(ch.id);
+    var isEdited = state.edits && state.edits[ch.id] != null;
+    var countHtml = "";
+    if(ch.limit){
+      var n = msg.length;
+      var cls = n<=ch.limit ? "ok" : "over";
+      countHtml = '<span class="char-count '+cls+'">'+n+' / '+ch.limit+' chars'+(n>ch.limit?" — OVER LIMIT":"")+'</span>';
+    } else {
+      countHtml = '<span class="char-count">'+msg.length+' chars</span>';
+    }
+    var panel = $("channelPanel");
+    panel.innerHTML =
+      '<div class="channel-panel">' +
+        '<div class="channel-head"><div><h3>'+esc(ch.name)+'</h3><div class="muted small">'+esc(ch.desc)+'</div></div>' +
+        '<div class="channel-meta">'+countHtml+(isEdited?'<span class="pill pill-amber">Edited</span>':'')+'</div></div>' +
+        '<div class="channel-body"><textarea id="channelEdit" aria-label="Edit '+esc(ch.name)+' message">'+esc(msg)+'</textarea>' +
+        (isEdited?'<div class="edited-note">You edited this message. “Refresh all messages” will discard edits and regenerate from templates.</div>':'') +
+        '</div>' +
+        '<div class="channel-foot">' +
+          '<button class="btn btn-primary btn-small" id="btnCopyCh" type="button">Copy message</button>' +
+          '<button class="btn btn-outline btn-small" id="btnResetCh" type="button">Reset to template</button>' +
+          '<button class="btn btn-outline btn-small" id="btnCopyChPlain" type="button">Copy without formatting</button>' +
+        '</div>' +
+      '</div>';
+
+    $("btnCopyCh").addEventListener("click", function(){ copyText($("channelEdit").value, ch.name+" message"); });
+    $("btnCopyChPlain").addEventListener("click", function(){ copyText($("channelEdit").value.replace(/\n{3,}/g,"\n\n"), ch.name+" message"); });
+    $("btnResetCh").addEventListener("click", function(){
+      if(state.edits) delete state.edits[ch.id];
+      save(); renderChannels(); renderAllChannels(); toast("Reset to template.");
+    });
+    $("channelEdit").addEventListener("input", function(){
+      var v = this.value;
+      var templ = generate(ch.id);
+      if(v===templ){ if(state.edits) delete state.edits[ch.id]; }
+      else { if(!state.edits) state.edits={}; state.edits[ch.id]=v; }
+      save();
+      // update count live without full re-render (avoid losing focus)
+      var meta = panel.querySelector(".channel-meta");
+      if(meta && ch.limit){
+        var n = v.length;
+        meta.innerHTML = '<span class="char-count '+(n<=ch.limit?"ok":"over")+'">'+n+' / '+ch.limit+' chars'+(n>ch.limit?" — OVER LIMIT":"")+'</span>' + (state.edits && state.edits[ch.id]!=null ? '<span class="pill pill-amber">Edited</span>' : '');
+      }
+      renderAllChannels();
+      renderFacts();
+    });
+
+    renderAllChannels();
+  }
+
+  function renderAllChannels(){
+    var el = $("allChannels");
+    el.innerHTML = CHANNELS.map(function(c){
+      var m = getMessage(c.id);
+      var edited = state.edits && state.edits[c.id]!=null;
+      return '<div class="mini-channel"><h4>'+esc(c.name)+(edited?' · edited':'')+'</h4><pre>'+esc(m)+'</pre></div>';
+    }).join("");
+  }
+
+  function renderChecklist(){
+    var ul = $("checklist");
+    ul.innerHTML = CHECKLIST_ITEMS.map(function(item){
+      var checked = !!state.checklist[item.id];
+      return '<li><input type="checkbox" id="ck-'+item.id+'" data-ck="'+item.id+'" '+(checked?"checked":"")+'><label for="ck-'+item.id+'" style="margin:0;font-weight:600;font-size:14.5px;cursor:pointer" class="'+(checked?"done-text":"")+'">'+esc(item.label)+'</label></li>';
+    }).join("");
+    ul.querySelectorAll("input[type=checkbox]").forEach(function(cb){
+      cb.addEventListener("change", function(){
+        state.checklist[cb.dataset.ck] = cb.checked;
+        save(); renderChecklist();
+      });
+    });
+    var done = CHECKLIST_ITEMS.filter(function(i){ return state.checklist[i.id]; }).length;
+    $("checkCount").textContent = done + " / " + CHECKLIST_ITEMS.length;
+    $("progressBar").style.width = Math.round(done/CHECKLIST_ITEMS.length*100) + "%";
+    var banner = $("readyBanner");
+    if(done===CHECKLIST_ITEMS.length){
+      banner.className = "ready-banner ready";
+      banner.textContent = "✓ Ready to send — all checks complete. Copy each channel or download the pack.";
+    } else {
+      banner.className = "ready-banner notreadday";
+      banner.textContent = "Not ready yet — complete the checklist above ("+done+"/"+CHECKLIST_ITEMS.length+").";
+    }
+    // steps
+    $("step1").className = "step done";
+    $("step2").className = "step " + (state.events.length ? "done" : "active");
+    var risks = findRisks();
+    $("step3").className = "step " + (risks.length===0 ? "done" : "active");
+    $("step4").className = "step " + (done===CHECKLIST_ITEMS.length ? "done" : "active");
+  }
+
+  function renderLog(){
+    var ul = $("logList");
+    if(!state.log.length){
+      ul.innerHTML = '<li class="muted">No updates sent yet. When you mark a pack as sent, it will appear here with a timestamp.</li>';
+      return;
+    }
+    ul.innerHTML = state.log.slice().reverse().map(function(entry){
+      return '<li><time>'+esc(entry.when)+'</time> — Update #'+esc(entry.n)+' · Next update: '+esc(entry.nextUpdate||"—")+' · Severity: '+esc(entry.severity||"—")+(entry.approver?' · Approved by: '+esc(entry.approver):'')+'<br><span class="muted">'+esc(entry.summary||"")+'</span></li>';
+    }).join("");
+  }
+
+  function renderAll(){
+    renderIncident();
+    renderEvents();
+    renderFacts();
+    renderChannels();
+    renderChecklist();
+    renderLog();
+  }
+
+  // ---------- Export ----------
+  function buildPack(){
+    var inc = state.incident;
+    var lines = [];
+    lines.push("# Outage Comms Studio — Customer Update Pack");
+    lines.push("");
+    lines.push("> **FICTIONAL SCENARIO — Synthetic training data. Not real network data.**");
+    lines.push("");
+    lines.push("**Incident:** " + (inc.title||"Untitled") );
+    lines.push("**Area:** " + (inc.area||"—") + "  |  **Services:** " + ((inc.services||[]).join(", ")||"—") + "  |  **Severity:** " + (inc.severity||"—"));
+    lines.push("**Start (approx.):** " + (inc.startTime||"—") + "  |  **Next update:** " + (inc.nextUpdate||"—") + "  |  **Tone:** " + (inc.tone||"calm") + "  |  **Language:** " + ((inc.lang==="ms")?"Bahasa Melayu":"English"));
+    lines.push("**Generated:** " + new Date().toLocaleString());
+    lines.push("");
+    lines.push("## Facts");
+    lines.push("- **Cause:** " + ((inc.cause||"").trim() ? (inc.cause + " (" + (inc.causeConf||"Unknown") + ")") : "Unknown — still investigating"));
+    lines.push("- **What we're doing:** " + ((inc.doing||"").trim()||"—"));
+    lines.push("- **What customers can do:** " + ((inc.canDo||"").trim()||"—"));
+    lines.push("- **Fix time:** Not confirmed — next update time given instead. No ETA promised.");
+    lines.push("");
+    lines.push("## Timeline");
+    if(state.events.length){
+      lines.push("| Time | Event | Confidence |");
+      lines.push("|---|---|---|");
+      state.events.forEach(function(e){
+        lines.push("| " + (e.time||"—") + " | " + (e.title||"").replace(/\|/g,"/") + (e.detail? " — "+e.detail.replace(/\|/g,"/"):"") + " | " + e.conf + " |");
+      });
+    } else lines.push("No events logged.");
+    lines.push("");
+    CHANNELS.forEach(function(c){
+      lines.push("## " + c.name);
+      lines.push("");
+      lines.push(getMessage(c.id));
+      lines.push("");
+    });
+    lines.push("## Pre-send checklist");
+    CHECKLIST_ITEMS.forEach(function(item){
+      lines.push("- [" + (state.checklist[item.id]?"x":" ") + "] " + item.label);
+    });
+    lines.push("");
+    lines.push("## Update log");
+    if(state.log.length){
+      state.log.forEach(function(e){
+        lines.push("- " + e.when + " — Update #" + e.n + " (next: " + (e.nextUpdate||"—") + ")");
+      });
+    } else lines.push("No updates sent yet.");
+    lines.push("");
+    lines.push("---");
+    lines.push("Synthetic data only. Verify every fact before use in a real incident. Human approval required — this pack is never auto-sent.");
+    return lines.join("\n");
+  }
+
+  function downloadPack(){
+    var text = buildPack();
+    var blob = new Blob([text], {type:"text/markdown;charset=utf-8"});
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement("a");
+    a.href = url;
+    a.download = "outage-update-pack.md";
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    setTimeout(function(){ URL.revokeObjectURL(url); }, 1000);
+    toast("Update pack downloaded.");
+  }
+
+  // ---------- Events ----------
+  function syncIncidentFromForm(){
+    var services = [];
+    $("serviceChecks").querySelectorAll("input[type=checkbox]").forEach(function(cb){ if(cb.checked) services.push(cb.value); });
+    state.incident = {
+      title: $("fTitle").value,
+      area: $("fArea").value,
+      services: services,
+      startTime: $("fStart").value,
+      severity: $("fSeverity").value,
+      nextUpdate: $("fNextUpdate").value,
+      cause: $("fCause").value,
+      causeConf: getSeg("causeConfSeg") || "Likely",
+      doing: $("fDoing").value,
+      canDo: $("fCanDo").value,
+      tone: getSeg("toneSeg") || "calm",
+      lang: getSeg("langSeg") || "en"
+    };
+    save();
+  }
+
+  ["fTitle","fArea","fStart","fSeverity","fNextUpdate","fCause","fDoing","fCanDo"].forEach(function(id){
+    $(id).addEventListener("input", function(){ syncIncidentFromForm(); renderFacts(); renderChannels(); renderChecklist(); });
+    $(id).addEventListener("change", function(){ syncIncidentFromForm(); renderFacts(); renderChannels(); renderChecklist(); });
+  });
+  $("serviceChecks").addEventListener("change", function(){ syncIncidentFromForm(); renderFacts(); renderChannels(); renderChecklist(); });
+  ["causeConfSeg","toneSeg","langSeg"].forEach(function(id){
+    $(id).querySelectorAll("button").forEach(function(b){
+      b.addEventListener("click", function(){
+        $(id).querySelectorAll("button").forEach(function(x){ x.setAttribute("aria-pressed","false"); });
+        b.setAttribute("aria-pressed","true");
+        syncIncidentFromForm(); renderFacts(); renderChannels(); renderChecklist();
+      });
+    });
+  });
+
+  $("btnAddEvent").addEventListener("click", function(){
+    var title = $("eTitle").value.trim();
+    if(!title){ toast("Add a short title for the event first."); $("eTitle").focus(); return; }
+    var editing = this.dataset.editing;
+    if(editing){
+      var e = state.events.find(function(x){ return x.id===editing; });
+      if(e){ e.time=$("eTime").value; e.conf=$("eConf").value; e.title=title; e.detail=$("eDetail").value.trim(); }
+      delete this.dataset.editing;
+      this.textContent = "+ Add to timeline";
+      toast("Event updated.");
+    } else {
+      state.events.push({
+        id: "e" + Date.now().toString(36) + Math.random().toString(36).slice(2,6),
+        time: $("eTime").value,
+        conf: $("eConf").value,
+        title: title,
+        detail: $("eDetail").value.trim()
+      });
+      toast("Event added to timeline.");
+    }
+    $("eTime").value=""; $("eTitle").value=""; $("eDetail").value="";
+    save(); renderAll();
+  });
+
+  $("btnRefresh").addEventListener("click", function(){
+    syncIncidentFromForm();
+    state.edits = {};
+    save(); renderAll();
+    toast("All messages refreshed from templates.");
+  });
+
+  $("btnClear").addEventListener("click", function(){
+    if(!confirm("Clear everything and start blank? This removes the sample and your edits.")) return;
+    state = {
+      incident: {title:"", area:"", services:["Broadband"], startTime:"", severity:"Major", nextUpdate:"", cause:"", causeConf:"Unknown", doing:"", canDo:"", tone:"calm", lang:"en"},
+      events: [], edits: {},
+      checklist: {plain:false, consistent:false, noeta:false, nextupdate:false, approved:false},
+      log: [], activeChannel: "sms"
+    };
+    save(); renderAll();
+    toast("Cleared. Start fresh — or load the fictional sample.");
+  });
+
+  $("btnLoadSample").addEventListener("click", function(){
+    if(!confirm("Load the fictional sample scenario? This replaces current content.")) return;
+    state = freshState();
+    save(); renderAll();
+    toast("Fictional sample loaded.");
+  });
+
+  $("btnCopyAll").addEventListener("click", function(){
+    var text = CHANNELS.map(function(c){ return "=== " + c.name + " ===\n" + getMessage(c.id); }).join("\n\n");
+    copyText(text, "All messages");
+  });
+
+  $("btnExportTop").addEventListener("click", downloadPack);
+  $("btnPrint").addEventListener("click", function(){ window.print(); });
+
+  $("btnMarkSent").addEventListener("click", function(){
+    var done = CHECKLIST_ITEMS.filter(function(i){ return state.checklist[i.id]; }).length;
+    if(done < CHECKLIST_ITEMS.length){
+      toast("Complete the checklist first ("+done+"/"+CHECKLIST_ITEMS.length+").");
+      $("checklistCard").scrollIntoView({behavior:"smooth"});
+      return;
+    }
+    var approver = prompt("Duty manager approver name (for the log):", "");
+    if(approver===null) return;
+    var n = state.log.length + 1;
+    var when = new Date().toLocaleString();
+    state.log.push({
+      n: n, when: when,
+      nextUpdate: state.incident.nextUpdate || "—",
+      severity: state.incident.severity || "—",
+      approver: (approver||"").trim(),
+      summary: (state.incident.title||"Untitled") + " — " + ((state.incident.services||[]).join(", ")||"services") + " in " + (state.incident.area||"area")
+    });
+    // reset checklist for next update, keep log
+    CHECKLIST_ITEMS.forEach(function(i){ state.checklist[i.id]=false; });
+    save(); renderAll();
+    toast("Update #" + n + " logged as sent. Checklist reset for next update.");
+    $("logH").scrollIntoView({behavior:"smooth"});
+  });
+
+  $("btnClearLog").addEventListener("click", function(){
+    if(!confirm("Clear the update log?")) return;
+    state.log = [];
+    save(); renderLog();
+    toast("Log cleared.");
+  });
+
+
+  // ---------- Init ----------
+  $("year").textContent = new Date().getFullYear();
+  renderAll();
+})();
+</script>
+</body>
+</html>
